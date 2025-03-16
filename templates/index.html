@@ -48,7 +48,8 @@
             margin-bottom: 20px;
         }
 
-        .upload-box input {
+        .upload-box input,
+        .upload-box select {
             margin-bottom: 10px;
         }
 
@@ -86,6 +87,16 @@
             <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
                 <input type="file" id="pdf-file" name="file" accept="application/pdf" required>
                 <br>
+                <label for="parser_option">Select Parsing Method:</label>
+                <select name="parser_option" required>
+                    <option value="pypdf2">PyPDF2</option>
+                    <option value="pdfminer">PDFMiner</option>
+                    <option value="pdfplumber">pdfplumber</option>
+                    <option value="tika">Tika</option>
+                    <option value="camelot">Camelot (for tables)</option>
+                    <option value="ocr">OCR (Tesseract)</option>
+                </select>
+                <br><br>
                 <button type="submit">Upload and Extract</button>
             </form>
         </div>

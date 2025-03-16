@@ -3,16 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extracted Text</title>
+    <title>PDF Extraction Result</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 20px; }
-        pre { white-space: pre-wrap; text-align: left; background: #f4f4f4; padding: 20px; border-radius: 10px; max-width: 800px; margin: auto; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 60%;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-box {
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            text-align: left;
+            border-radius: 5px;
+        }
+
+        .button-box {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            margin: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-box:hover {
+            background: #0056b3;
+        }
     </style>
 </head>
 <body>
-    <h2>Extracted Text from PDF</h2>
-    <pre>{{ text }}</pre>
-    <br>
-    <a href="/">Upload Another PDF</a>
+
+    <div class="container">
+        <h2>Extracted Text</h2>
+        <div class="text-box">
+            <pre>{{ text }}</pre>
+        </div>
+
+        <br>
+
+        <a href="{{ download_link }}" class="button-box">Download Extracted Text</a>
+        <a href="/" class="button-box">Upload Another PDF</a>
+    </div>
+
 </body>
 </html>
