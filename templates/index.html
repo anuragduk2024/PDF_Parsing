@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: #e3f2fd;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            height: 80%;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .upload-box, .preview-box {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .upload-box {
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 2px solid #ccc;
+        }
+
+        .upload-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .upload-box input {
+            margin-bottom: 10px;
+        }
+
+        .upload-box button {
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .upload-box button:hover {
+            background: #0056b3;
+        }
+
+        .preview-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+        }
+
+        .preview-box embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="upload-box">
+            <h2>Upload a PDF File</h2>
+            <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" id="pdf-file" name="file" accept="application/pdf" required>
+                <br>
+                <button type="submit">Upload and Extract</button>
+            </form>
+        </div>
+        <div class="preview-box">
+            <embed id="pdf-preview" type="application/pdf">
+        </div>
+    </div>
+    <script>
+        document.getElementById('pdf-file').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const fileURL = URL.createObjectURL(file);
+                document.getElementById('pdf-preview').src = fileURL;
+            }
+        });
+    </script>
+</body>
+</html>
