@@ -1,116 +1,72 @@
-# PDF Parsing Web Application
+# PDF Parsing Flask Application
 
 ## Overview
-This project is a Flask-based web application that extracts text from PDF files using Apache Tika and Tesseract OCR. It allows users to upload PDFs and retrieve extracted text, supporting both standard and image-based PDFs.
+This project is a Flask-based web application for extracting text from PDF files using various parsing techniques. Users can upload a PDF file, choose a parsing method, extract text, and download the extracted results.
 
-## Features
-- Extract text from standard PDFs using Apache Tika.
-- Extract text from image-based PDFs using Tesseract OCR.
-- Web-based interface for easy file uploads.
-- Flask backend for processing and API handling.
+## Major Changes in the `new-feature` Branch
+The `new-feature` branch introduces several significant improvements over the `main` branch:
 
-## Technologies Used
-- **Python** (Flask, PyTesseract, Requests)
-- **Java** (Apache Tika)
-- **Tesseract OCR**
-- **HTML/CSS** (Frontend UI)
+### 1. **Added Multiple Parsing Options**
+- Implemented the ability to select different PDF parsers for text extraction.
+- Supported parsers include:
+  - `PyPDF2`
+  - `pdfminer`
+  - `pdfplumber`
+  - `Tika`
+  - `Camelot` (for table extraction)
+  - `OCR` (using Tesseract for scanned PDFs)
 
-## Prerequisites
-### 1. Install Java
-Ensure that Java is installed and configured correctly:
-```sh
-java -version
-```
-If Java is not installed, download and install OpenJDK or Oracle JDK.
+### 2. **Enhanced Result Management**
+- Each parser now saves its extracted text in a separate file within the `parsed_results/` directory.
+- Filenames follow the format: `{parser_option}_{filename}.txt` to prevent overwriting results from different parsers.
 
-### 2. Install Apache Tika
-Download and place the `tika-server-1.9.jar` in your project directory.
-Start the Tika server:
-```sh
-java -jar tika-server-1.9.jar
-```
-Verify it's running at: `http://localhost:9998/`
+### 3. **Implemented File Download Feature**
+- Users can download the extracted text files directly from the results page.
+- Flask's `send_file` function is used to serve the saved text files.
 
-### 3. Install Tesseract OCR
-Download and install Tesseract OCR from [here](https://github.com/UB-Mannheim/tesseract/wiki).
-After installation, add Tesseract to your system PATH:
-```sh
-setx PATH "%PATH%;C:\Program Files\Tesseract-OCR"
-```
-Verify the installation:
-```sh
-tesseract -v
-```
+### 4. **Directory Structure Improvements**
+- Ensured `uploads/` and `parsed_results/` directories are automatically created if they don’t exist.
+- Fixed potential issues with incorrect file paths when saving and retrieving extracted text files.
 
-### 4. Create a Virtual Environment
-```sh
-python -m venv PDF_P
-```
-Activate it:
-```sh
-# Windows
-PDF_P\Scripts\activate
+### 5. **Bug Fixes**
+- Resolved `FileNotFoundError` that occurred when attempting to download results due to incorrect file path references.
+- Fixed incorrect nested `parsed_results/parsed_results/` directory issue.
 
-# macOS/Linux
-source PDF_P/bin/activate
-```
-
-### 5. Install Dependencies
-```sh
-pip install -r requirements.txt
-```
-
-## Running the Application
-1. Start the Tika server:
-   ```sh
-   java -jar tika-server-1.9.jar
+## Installation and Usage
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/anuragduk2024/PDF_Parsing.git
+   cd PDF_Parsing
    ```
-2. Run the Flask application:
-   ```sh
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the Flask application:
+   ```bash
    python main.py
    ```
-3. Open your browser and navigate to `http://127.0.0.1:5000/`.
+4. Access the web interface at `http://127.0.0.1:5000/`.
+5. Upload a PDF, choose a parser, extract text, and download results.
 
-## Troubleshooting
-### 1. Java Not Recognized in PyCharm
-- Ensure Java is installed and added to the system PATH.
-- Restart PyCharm after configuring Java.
-- Check the Java version inside the PyCharm terminal:
-  ```sh
-  java -version
-  ```
+## Future Enhancements
+- Add support for bulk PDF processing.
+- Improve UI for better user experience.
+- Implement more advanced NLP techniques for better text extraction.
 
-### 2. `TypeError: can only concatenate str (not "NoneType") to str`
-- This occurs when Apache Tika returns `None`. Ensure the Tika server is running properly.
-- Try restarting the Tika server and re-uploading the PDF.
+## Contribution
+If you wish to contribute:
+1. Create a new branch:
+   ```bash
+   git checkout -b feature-branch
+   ```
+2. Make your changes and commit:
+   ```bash
+   git commit -m "Description of changes"
+   ```
+3. Push to GitHub and create a Pull Request.
 
-### 3. `TesseractNotFoundError: tesseract is not installed or it's not in your PATH`
-- Ensure Tesseract OCR is installed and added to the PATH.
-- Verify installation with:
-  ```sh
-  tesseract -v
-  ```
-- If the issue persists, manually set the Tesseract path in your Python script:
-  ```python
-  pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-  ```
-
-## License
-This project is open-source and available under the MIT License.
-
-## Acknowledgements  
-
-I would like to express my sincere gratitude to the following:  
-
-- **OpenAI & Flask Community** – For providing extensive documentation and support that helped in developing the Flask-based web application.  
-- **Apache Tika & Tesseract-OCR** – For enabling efficient text extraction from PDFs through robust open-source tools.  
-- **Python & Open-Source Libraries** – For their rich ecosystem of tools that made implementation seamless.  
-- **PyCharm & JetBrains** – For offering an efficient development environment.  
-- **The Open-Source Community** – For continuous contributions and improvements in the field of text extraction and document processing.  
-- **Friends & Mentors** – For guidance, testing, and valuable feedback throughout the project.  
-
-I appreciate all the resources and contributions that made this project possible. 🚀  
-
-## Author
-ANURAG S S
+---
+### Author
+**Anurag S S**
 
